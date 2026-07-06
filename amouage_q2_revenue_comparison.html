@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amouage — Q2 Revenue Comparison 2025 vs 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:#002FA7;--blue-l:#3355CC;--blue-xl:#5577EE;--blue-bg:rgba(0,47,167,0.05);
+  --bg:#F5F3EE;--surface:#fff;--surface2:#ECEAE4;
+  --text:#111118;--muted:#6b6b78;--border:rgba(17,17,24,0.1);--border-k:rgba(0,47,167,0.22);
+  --red:#C8210E;--amber:#B36E00;--green:#2d6e47;
+  --c25:#9ca3af;--c26:#002FA7;
+  --font-d:'Bebas Neue',sans-serif;--font-c:'Barlow Condensed',sans-serif;--font-m:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-c);background:var(--bg);color:var(--text);font-size:15px;line-height:1.65;}
+
+/* HEADER */
+.hdr{background:var(--surface);border-bottom:2px solid var(--blue);padding:52px 56px 44px;}
+.eye{font-family:var(--font-m);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-xl);margin-bottom:14px;}
+.htitle{font-family:var(--font-d);font-size:clamp(44px,6vw,82px);line-height:.9;color:var(--text);text-transform:uppercase;margin-bottom:20px;}
+.htitle span{color:var(--blue);}
+.hrule{width:48px;height:3px;background:var(--blue);margin-bottom:16px;}
+.hsub{font-family:var(--font-c);font-size:14px;font-weight:300;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);max-width:600px;line-height:1.7;}
+.hmeta{margin-top:26px;display:flex;gap:28px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:16px;}
+.hmi{font-family:var(--font-m);font-size:10px;color:var(--muted);letter-spacing:.07em;}
+.hmi strong{color:var(--blue);font-weight:400;display:block;margin-bottom:1px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;}
+
+/* LEGEND STRIP */
+.legend-strip{background:var(--surface2);border-bottom:1px solid var(--border);padding:10px 56px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+.ls-item{display:flex;align-items:center;gap:7px;font-family:var(--font-m);font-size:10px;letter-spacing:.08em;color:var(--muted);}
+.ls-26{width:24px;height:3px;background:var(--blue);border-radius:2px;}
+.ls-25{width:24px;height:2px;background-image:repeating-linear-gradient(90deg,var(--c25) 0,var(--c25) 6px,transparent 6px,transparent 10px);}
+
+/* NAV */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 56px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05);}
+.nav::-webkit-scrollbar{display:none;}
+.nav a{font-family:var(--font-m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:14px 16px;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav a:hover{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* LAYOUT */
+.wrap{max-width:1020px;margin:0 auto;padding:0 28px;}
+.sec{padding:56px 0 0;}
+.sec:last-of-type{padding-bottom:80px;}
+.seye{font-family:var(--font-m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-xl);margin-bottom:6px;}
+.stitle{font-family:var(--font-d);font-size:clamp(26px,3.5vw,42px);text-transform:uppercase;color:var(--text);letter-spacing:.02em;margin-bottom:6px;}
+.srule{width:100%;height:1px;background:var(--border);margin-bottom:24px;}
+.sdesc{font-family:var(--font-c);font-size:13.5px;font-weight:300;color:var(--muted);line-height:1.7;letter-spacing:.02em;margin-bottom:20px;}
+
+/* NOTICE */
+.notice{border-left:3px solid var(--blue);background:var(--blue-bg);padding:10px 15px;font-family:var(--font-c);font-size:13px;font-weight:300;letter-spacing:.02em;color:var(--muted);margin-bottom:22px;line-height:1.6;}
+.notice strong{color:var(--blue-l);font-weight:600;}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:24px;}
+.kpi{background:var(--surface);padding:18px 16px;}
+.klabel{font-family:var(--font-m);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.krow{display:flex;align-items:baseline;gap:5px;margin-bottom:4px;}
+.k25{font-family:var(--font-d);font-size:24px;color:#c8c8c8;}
+.karr{font-size:12px;color:var(--muted);}
+.k26{font-family:var(--font-d);font-size:32px;}
+.k26.up{color:var(--green);}
+.k26.dn{color:var(--red);}
+.k26.nt{color:var(--text);}
+.kdelta{font-family:var(--font-m);font-size:10px;letter-spacing:.04em;}
+.kdelta.up{color:var(--green);}
+.kdelta.dn{color:var(--red);}
+.kdelta.nt{color:var(--muted);}
+
+/* MONTH CARDS */
+.mcards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:20px;}
+.mcard{background:var(--surface);padding:18px 16px;}
+.mname{font-family:var(--font-m);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.mrow{display:flex;align-items:baseline;gap:5px;margin-bottom:5px;}
+.m25{font-family:var(--font-d);font-size:20px;color:#c8c8c8;}
+.m26{font-family:var(--font-d);font-size:28px;}
+.m26.up{color:var(--green);}
+.m26.dn{color:var(--red);}
+.mdelta{font-family:var(--font-m);font-size:10px;}
+.mdelta.up{color:var(--green);}
+.mdelta.dn{color:var(--red);}
+.mmeta{font-family:var(--font-m);font-size:9px;color:var(--muted);margin-top:6px;line-height:1.6;}
+
+/* CHART */
+.cc{background:var(--surface);border:1px solid var(--border);padding:18px 18px 12px;margin-bottom:16px;}
+.cc-eye{font-family:var(--font-m);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-xl);margin-bottom:12px;}
+.cw{position:relative;width:100%;height:260px;}
+.cw-sm{position:relative;width:100%;height:200px;}
+.cw-lg{position:relative;width:100%;height:300px;}
+
+/* TABLES */
+.tw{border:1px solid var(--border);margin-bottom:16px;overflow:hidden;}
+.tw-title{font-family:var(--font-m);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-xl);padding:8px 12px;border-bottom:1px solid var(--border);background:var(--blue-bg);}
+.dt{width:100%;border-collapse:collapse;font-family:var(--font-c);font-size:13px;font-weight:300;letter-spacing:.02em;}
+.dt th{background:var(--surface2);padding:7px 11px;text-align:left;font-family:var(--font-m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:400;}
+.dt th.r{text-align:right;}.dt th.c{text-align:center;}
+.dt td{padding:7px 11px;border-bottom:1px solid var(--border);color:var(--text);background:var(--surface);}
+.dt td.r{text-align:right;}.dt td.c{text-align:center;}
+.dt tr:last-child td{border-bottom:none;}
+.dt tr:nth-child(even) td{background:var(--bg);}
+.dt tfoot td{background:var(--blue-bg)!important;font-weight:600;border-top:1px solid var(--border-k);border-bottom:none;}
+.tup{color:var(--green);font-weight:600;}
+.tdn{color:var(--red);font-weight:600;}
+.tam{color:var(--amber);font-weight:600;}
+.tm{color:var(--muted);}
+
+/* TWO COL */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+
+/* BAR INLINE */
+.bbar{height:4px;background:var(--border);border-radius:2px;margin-top:3px;}
+.bfill{height:4px;border-radius:2px;}
+
+/* INSIGHT */
+.ins-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.ins{display:flex;gap:11px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);padding:12px 15px;}
+.ibadge{font-family:var(--font-m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;white-space:nowrap;flex-shrink:0;margin-top:1px;}
+.ibc{background:var(--red);color:#fff;}
+.ibh{background:var(--amber);color:#fff;}
+.ibp{background:var(--green);color:#fff;}
+.ibn{background:var(--blue);color:#fff;}
+.ins p{font-family:var(--font-c);font-size:13px;font-weight:300;color:var(--muted);line-height:1.6;}
+.ins p strong{color:var(--text);font-weight:600;}
+
+/* FOOTER */
+.foot{background:var(--surface2);border-top:2px solid var(--blue);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px;}
+.foot-l p{font-family:var(--font-m);font-size:10px;letter-spacing:.09em;color:var(--muted);line-height:1.8;}
+.foot-r{font-family:var(--font-m);font-size:10px;letter-spacing:.07em;color:var(--blue);text-align:right;}
+
+@media(max-width:640px){
+  .hdr,.nav,.legend-strip,.foot{padding-left:18px;padding-right:18px;}
+  .wrap{padding:0 16px;}
+  .mcards,.two{grid-template-columns:1fr;}
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .foot{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <p class="eye">Surf Maroc · Amouage Hotel · Revenue analysis</p>
+  <h1 class="htitle">Q2 Revenue<br><span>2025 vs 2026</span></h1>
+  <div class="hrule"></div>
+  <p class="hsub">Full comparison · April, May &amp; June · Source: Bookinglayer booking export · Deduplicated &amp; converted to EUR</p>
+  <div class="hmeta">
+    <div class="hmi"><strong>Property</strong>Amouage Hotel · Agadir</div>
+    <div class="hmi"><strong>Q2 2025</strong>729 bookings</div>
+    <div class="hmi"><strong>Q2 2026</strong>638 bookings</div>
+    <div class="hmi"><strong>FX</strong>GBP×1.17 · MAD×0.092 · EUR×1</div>
+    <div class="hmi"><strong>Issued</strong>July 6, 2026 · Confidential</div>
+  </div>
+</header>
+
+<!-- LEGEND STRIP -->
+<div class="legend-strip">
+  <span class="ls-item"><span class="ls-26"></span>2026 — solid line / dark bar</span>
+  <span class="ls-item"><span class="ls-25"></span>2025 — dashed line / light bar</span>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#summary">01 · Summary</a>
+  <a href="#monthly">02 · Monthly</a>
+  <a href="#packages">03 · Packages</a>
+  <a href="#markets">04 · Markets</a>
+  <a href="#behaviour">05 · Behaviour</a>
+  <a href="#insights">06 · Insights</a>
+</nav>
+
+<div class="wrap">
+
+  <!-- 01 SUMMARY -->
+  <section class="sec" id="summary">
+    <p class="seye">01 · Top line</p>
+    <h2 class="stitle">Q2 Summary</h2>
+    <div class="srule"></div>
+    <div class="notice">
+      <strong>Methodology:</strong> Deduplicated by booking reference (one row per booking). Revenue converted to EUR equivalent. Accommodation = 1+ nights. Walk-in = 0-night bookings (F&amp;B / Spa / Activities). Figures are gross paid amounts from Bookinglayer.
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <p class="klabel">Total revenue</p>
+        <div class="krow"><span class="k25">€348K</span><span class="karr">→</span><span class="k26 dn">€329K</span></div>
+        <p class="kdelta dn">−€18,334 · −5.3%</p>
+      </div>
+      <div class="kpi">
+        <p class="klabel">Accommodation revenue</p>
+        <div class="krow"><span class="k25">€305K</span><span class="karr">→</span><span class="k26 dn">€289K</span></div>
+        <p class="kdelta dn">−€16,109 · −5.3%</p>
+      </div>
+      <div class="kpi">
+        <p class="klabel">Walk-in / F&amp;B / Spa</p>
+        <div class="krow"><span class="k25">€43K</span><span class="karr">→</span><span class="k26 dn">€40K</span></div>
+        <p class="kdelta dn">−€2,223 · −5.2%</p>
+      </div>
+      <div class="kpi">
+        <p class="klabel">Total bookings</p>
+        <div class="krow"><span class="k25">729</span><span class="karr">→</span><span class="k26 dn">638</span></div>
+        <p class="kdelta dn">−91 bookings · −12.5%</p>
+      </div>
+      <div class="kpi">
+        <p class="klabel">ADR per room night</p>
+        <div class="krow"><span class="k25">€185</span><span class="karr">→</span><span class="k26 up">€201</span></div>
+        <p class="kdelta up">+€16 · +8.6%</p>
+      </div>
+      <div class="kpi">
+        <p class="klabel">Avg booking lead time</p>
+        <div class="krow"><span class="k25">7d</span><span class="karr">→</span><span class="k26 nt">9d</span></div>
+        <p class="kdelta nt">+2 days</p>
+      </div>
+    </div>
+    <p class="sdesc">Q2 2026 total revenue is down 5.3% vs Q2 2025 — a relatively contained revenue decline despite the occupancy gap being much larger (−16 pts average). The cushion comes from ADR rising 8.6% (€185 → €201). In 2026 the property served 91 fewer bookings but charged more per night. The critical question: did the higher rate cause the volume drop, or did something else?</p>
+  </section>
+
+  <!-- 02 MONTHLY -->
+  <section class="sec" id="monthly">
+    <p class="seye">02 · Month by month</p>
+    <h2 class="stitle">Monthly Revenue Trend</h2>
+    <div class="srule"></div>
+
+    <div class="mcards">
+      <div class="mcard">
+        <p class="mname">April</p>
+        <div class="mrow"><span class="m25">€52,324</span><span class="karr" style="font-size:11px;color:var(--muted);">→</span><span class="m26 dn">€44,898</span></div>
+        <p class="mdelta dn">−€7,426 · −14%</p>
+        <p class="mmeta">90 bk → 78 bk · ADR €581 → €576<br>Avg stay 3.7n → 4.2n</p>
+      </div>
+      <div class="mcard">
+        <p class="mname">May</p>
+        <div class="mrow"><span class="m25">€126,250</span><span class="karr" style="font-size:11px;color:var(--muted);">→</span><span class="m26 up">€126,459</span></div>
+        <p class="mdelta up">+€209 · flat</p>
+        <p class="mmeta">165 bk → 168 bk · ADR €765 → €753<br>Avg stay 4.0n → 3.5n</p>
+      </div>
+      <div class="mcard">
+        <p class="mname">June</p>
+        <div class="mrow"><span class="m25">€126,565</span><span class="karr" style="font-size:11px;color:var(--muted);">→</span><span class="m26 dn">€117,672</span></div>
+        <p class="mdelta dn">−€8,893 · −7%</p>
+        <p class="mmeta">220 bk → 152 bk · ADR €575 → €774<br>Avg stay 3.3n → 3.8n</p>
+      </div>
+    </div>
+
+    <div class="cc">
+      <p class="cc-eye">Revenue by month (EUR equivalent)</p>
+      <div class="cw-lg"><canvas id="cMonthRev" role="img" aria-label="Monthly revenue bar chart 2025 vs 2026. April 52324 vs 44898. May 126250 vs 126459. June 126565 vs 117672."></canvas></div>
+    </div>
+
+    <div class="cc">
+      <p class="cc-eye">Bookings count per month</p>
+      <div class="cw"><canvas id="cMonthBk" role="img" aria-label="Monthly bookings 2025 vs 2026. April 90 vs 78. May 165 vs 168. June 220 vs 152."></canvas></div>
+    </div>
+
+    <div class="cc">
+      <p class="cc-eye">Average daily rate (ADR) per month — solid = 2026 · dashed = 2025</p>
+      <div class="cw"><canvas id="cADR" role="img" aria-label="ADR per month 2025 vs 2026. April 581 vs 576. May 765 vs 753. June 575 vs 774."></canvas></div>
+    </div>
+  </section>
+
+  <!-- 03 PACKAGES -->
+  <section class="sec" id="packages">
+    <p class="seye">03 · Package performance</p>
+    <h2 class="stitle">Revenue by Package</h2>
+    <div class="srule"></div>
+
+    <div class="tw">
+      <div class="tw-title">Package revenue — 2025 vs 2026 (accommodation only)</div>
+      <table class="dt">
+        <thead>
+          <tr><th>Package</th><th class="c">Bk 25</th><th class="c">Bk 26</th><th class="r">Rev 2025</th><th class="r">Rev 2026</th><th class="r">Change</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Summer Surf Package</td><td class="c">67</td><td class="c">40</td><td class="r">€81,311</td><td class="r tdn">€58,642</td><td class="r tdn">−28%</td></tr>
+          <tr><td>Surf Experiences</td><td class="c">42</td><td class="c">48</td><td class="r">€53,204</td><td class="r tup">€61,812</td><td class="r tup">+16%</td></tr>
+          <tr><td>Room Only Last Minute</td><td class="c">121</td><td class="c">131</td><td class="r">€51,837</td><td class="r tup">€76,909</td><td class="r tup">+48%</td></tr>
+          <tr><td>Room Only Summer at Amouage</td><td class="c">—</td><td class="c">34</td><td class="r tm">—</td><td class="r">€32,133</td><td class="r tm">New in 2026</td></tr>
+          <tr><td>Room Only + Taghazout Villa</td><td class="c">82</td><td class="c">1</td><td class="r">€45,913</td><td class="r tdn">€2,583</td><td class="r tdn">−94%</td></tr>
+          <tr><td>Room Only All Year Round</td><td class="c">42</td><td class="c">10</td><td class="r">€29,518</td><td class="r tdn">€10,878</td><td class="r tdn">−63%</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Total accommodation</td><td class="c">475</td><td class="c">398</td><td class="r">€305,138</td><td class="r">€289,029</td><td class="r tdn">−5.3%</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="cc">
+      <p class="cc-eye">Package revenue comparison (EUR)</p>
+      <div class="cw-lg"><canvas id="cPkg" role="img" aria-label="Package revenue comparison 2025 vs 2026."></canvas></div>
+    </div>
+  </section>
+
+  <!-- 04 MARKETS -->
+  <section class="sec" id="markets">
+    <p class="seye">04 · Source markets</p>
+    <h2 class="stitle">Guest Origin</h2>
+    <div class="srule"></div>
+
+    <div class="two">
+      <div class="tw">
+        <div class="tw-title">Revenue by country — 2025</div>
+        <table class="dt">
+          <thead><tr><th>Country</th><th class="r">Revenue</th><th>Share</th></tr></thead>
+          <tbody id="ctry25"></tbody>
+        </table>
+      </div>
+      <div class="tw">
+        <div class="tw-title">Revenue by country — 2026</div>
+        <table class="dt">
+          <thead><tr><th>Country</th><th class="r">Revenue</th><th>Share</th></tr></thead>
+          <tbody id="ctry26"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="cc">
+      <p class="cc-eye">Top markets — revenue comparison (EUR)</p>
+      <div class="cw-lg"><canvas id="cCtry" role="img" aria-label="Country revenue comparison 2025 vs 2026."></canvas></div>
+    </div>
+  </section>
+
+  <!-- 05 BEHAVIOUR -->
+  <section class="sec" id="behaviour">
+    <p class="seye">05 · Booking behaviour</p>
+    <h2 class="stitle">Lead Time &amp; Length of Stay</h2>
+    <div class="srule"></div>
+
+    <div class="two">
+      <div class="tw">
+        <div class="tw-title">Booking lead time</div>
+        <table class="dt">
+          <thead><tr><th>Window</th><th class="c">2025</th><th class="c">2026</th><th class="r">Δ</th></tr></thead>
+          <tbody>
+            <tr><td>0–7 days</td><td class="c">70%</td><td class="c">64%</td><td class="r tdn">−6 pts</td></tr>
+            <tr><td>8–14 days</td><td class="c">12%</td><td class="c">10%</td><td class="r tdn">−2 pts</td></tr>
+            <tr><td>15–30 days</td><td class="c">13%</td><td class="c">16%</td><td class="r tup">+3 pts</td></tr>
+            <tr><td>31+ days ahead</td><td class="c">5%</td><td class="c">11%</td><td class="r tup">+6 pts</td></tr>
+          </tbody>
+          <tfoot><tr><td>Avg lead time</td><td class="c">7 days</td><td class="c">9 days</td><td class="r">+2 days</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="tw">
+        <div class="tw-title">Length of stay</div>
+        <table class="dt">
+          <thead><tr><th>Nights</th><th class="c">2025</th><th class="c">2026</th><th class="r">Δ</th></tr></thead>
+          <tbody>
+            <tr><td>1 night</td><td class="c">93</td><td class="c">62</td><td class="r tdn">−33%</td></tr>
+            <tr><td>2 nights</td><td class="c">99</td><td class="c">76</td><td class="r tdn">−23%</td></tr>
+            <tr><td>3 nights</td><td class="c">63</td><td class="c">65</td><td class="r tm">+3%</td></tr>
+            <tr><td>4 nights</td><td class="c">80</td><td class="c">79</td><td class="r tm">flat</td></tr>
+            <tr><td>5 nights</td><td class="c">54</td><td class="c">31</td><td class="r tdn">−43%</td></tr>
+            <tr><td>6 nights</td><td class="c">16</td><td class="c">27</td><td class="r tup">+69%</td></tr>
+            <tr><td>7 nights</td><td class="c">51</td><td class="c">39</td><td class="r tdn">−24%</td></tr>
+          </tbody>
+          <tfoot><tr><td>Avg stay</td><td class="c">3.8n</td><td class="c">3.7n</td><td class="r tm">−0.1n</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="cc">
+      <p class="cc-eye">Length of stay distribution — 2025 vs 2026</p>
+      <div class="cw"><canvas id="cLOS" role="img" aria-label="Length of stay distribution 2025 vs 2026."></canvas></div>
+    </div>
+  </section>
+
+  <!-- 06 INSIGHTS -->
+  <section class="sec" id="insights">
+    <p class="seye">06 · Analysis</p>
+    <h2 class="stitle">Key Insights</h2>
+    <div class="srule"></div>
+
+    <div class="ins-list">
+      <div class="ins">
+        <span class="ibadge ibc">Critical</span>
+        <p><strong>Room Only + Taghazout Villa package collapsed −94%</strong> — from €45,913 across 82 bookings in 2025, to €2,583 from just 1 booking in 2026. This single package shift accounts for nearly half the total revenue gap. It was the second-largest revenue package in 2025. Was it discontinued, deprioritised, or simply not promoted? This needs to be investigated urgently.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibc">Critical</span>
+        <p><strong>Summer Surf Package down −28% in revenue and −40% in bookings</strong> (67 → 40). This was the top revenue package in 2025 at €81K. The surf package buyer is your highest-value guest. Losing 27 of them in a single quarter has a disproportionate impact on total revenue and the property's positioning as a surf destination.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibh">High</span>
+        <p><strong>June bookings fell from 220 to 152 (−31%)</strong> — the steepest volume drop. Yet revenue only fell 7% because average booking value surged from €575 to €774 (+35%). June 2026 had far fewer guests paying significantly more. This points to a pricing or availability change that filtered out shorter, cheaper stays.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibh">High</span>
+        <p><strong>Room Only Last Minute revenue jumped +48%</strong> (€51,837 → €76,909) with more bookings (121 → 131). The property is increasingly reliant on last-minute discounting to fill rooms. While it protects occupancy, it is replacing higher-value surf packages with lower-margin room-only stays — a structural shift in guest mix that compresses long-term revenue potential.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibh">High</span>
+        <p><strong>Short stays are disappearing.</strong> 1-night bookings fell from 93 to 62 (−33%) and 2-night bookings from 99 to 76 (−23%). This is consistent with a minimum stay policy or pricing structure that pushed out short-stay guests — but those guests represented significant volume in 2025 and their absence is felt in booking counts.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibp">Positive</span>
+        <p><strong>May 2026 is essentially flat vs 2025</strong> — €126,459 vs €126,250, a difference of just €209. With slightly more bookings (168 vs 165). May is the only month where 2026 holds its ground entirely. The May strategy — whatever pricing and channel mix produced this — should be studied and extended to April and June.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibp">Positive</span>
+        <p><strong>Surf Experiences revenue up +16%</strong> (€53,204 → €61,812) with more bookings (42 → 48). This is a genuine bright spot. Demand for surf experiences is growing year-on-year and these guests have a higher average booking value. This package should anchor the paid media strategy for Q3.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibp">Positive</span>
+        <p><strong>ADR up +8.6% (€185 → €201)</strong> — the rate increase is working. The revenue gap is entirely a volume problem, not a rate problem. The property is charging more per night and guests are paying it. The task for Q3 is replicating May's volume at June's rates.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibn">Note</span>
+        <p><strong>UK market revenue grew +24% (€88K → €110K)</strong> despite fewer overall bookings — UK guests are paying more and staying longer. UK now represents 38% of accommodation revenue vs 29% in 2025. The concentration risk is increasing: a disruption to UK travel demand would be felt acutely.</p>
+      </div>
+      <div class="ins">
+        <span class="ibadge ibn">Note</span>
+        <p><strong>Marketing channel attribution is empty in both datasets.</strong> Without knowing which channel (Meta, Google, organic, direct) drove each booking, calculating true ROAS is impossible. This is a critical gap in the reporting infrastructure that should be addressed in Bookinglayer before the next export.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot-l">
+    <p>Amouage Hotel · Surf Maroc · Q2 Revenue Comparison 2025 vs 2026</p>
+    <p>Confidential · Internal use only · July 6, 2026</p>
+  </div>
+  <p class="foot-r">Made by Ayman Boutadghart</p>
+</footer>
+
+<script>
+const C26s='rgba(0,47,167,0.82)', C25s='rgba(156,163,175,0.65)';
+
+// Country tables
+const d25c=[{n:'United Kingdom',r:88404,p:29.0},{n:'France',r:52830,p:17.3},{n:'Switzerland',r:18090,p:5.9},{n:'Netherlands',r:12341,p:4.0},{n:'Belgium',r:7591,p:2.5},{n:'Germany',r:6003,p:2.0},{n:'Morocco',r:5428,p:1.8},{n:'Other',r:114451,p:37.5}];
+const d26c=[{n:'United Kingdom',r:110060,p:38.1},{n:'France',r:50982,p:17.6},{n:'Switzerland',r:22168,p:7.7},{n:'Netherlands',r:17490,p:6.1},{n:'United States',r:12247,p:4.2},{n:'Germany',r:11725,p:4.1},{n:'Australia',r:9216,p:3.2},{n:'Other',r:55141,p:19.0}];
+const maxCR=Math.max(...d25c.map(c=>c.r),...d26c.map(c=>c.r));
+['ctry25','ctry26'].forEach((id,i)=>{
+  const data=i===0?d25c:d26c, col=i===0?'var(--c25)':'var(--blue)';
+  const tb=document.getElementById(id);
+  data.forEach(c=>{
+    const bw=Math.round(80*c.r/maxCR);
+    tb.innerHTML+=`<tr><td>${c.n}</td><td class="r">€${c.r.toLocaleString()}</td>
+    <td style="min-width:80px;"><span style="font-size:11px;color:var(--muted);">${c.p}%</span>
+    <div class="bbar"><div class="bfill" style="width:${bw}%;background:${col};"></div></div></td></tr>`;
+  });
+});
+
+window.addEventListener('load',function(){
+  const defOpts=(title)=>({
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:11},color:'#6b6b78'}},
+      tooltip:{callbacks:{label:c=>` ${c.dataset.label}: €${c.parsed.y!==undefined?c.parsed.y.toLocaleString():c.parsed.x.toLocaleString()}`}}},
+    scales:{
+      x:{ticks:{font:{size:11},color:'#888'},grid:{display:false},border:{display:false}},
+      y:{ticks:{callback:v=>'€'+(v/1000)+'K',font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'},border:{display:false}}
+    }
+  });
+
+  // Monthly revenue
+  new Chart(document.getElementById('cMonthRev'),{
+    type:'bar',
+    data:{labels:['April','May','June'],datasets:[
+      {label:'2026',data:[44898,126459,117672],backgroundColor:C26s,borderRadius:4},
+      {label:'2025',data:[52324,126250,126565],backgroundColor:C25s,borderRadius:4}
+    ]},
+    options:defOpts()
+  });
+
+  // Monthly bookings
+  new Chart(document.getElementById('cMonthBk'),{
+    type:'bar',
+    data:{labels:['April','May','June'],datasets:[
+      {label:'2026',data:[78,168,152],backgroundColor:C26s,borderRadius:4},
+      {label:'2025',data:[90,165,220],backgroundColor:C25s,borderRadius:4}
+    ]},
+    options:{...defOpts(),plugins:{legend:{labels:{font:{size:11},color:'#6b6b78'}},
+      tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y} bookings`}}},
+      scales:{x:{ticks:{font:{size:11},color:'#888'},grid:{display:false},border:{display:false}},
+        y:{ticks:{font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'},border:{display:false}}}}
+  });
+
+  // ADR line chart
+  new Chart(document.getElementById('cADR'),{
+    type:'line',
+    data:{labels:['April','May','June'],datasets:[
+      {label:'2026 ADR',data:[576,753,774],borderColor:'#002FA7',backgroundColor:'rgba(0,47,167,0.06)',fill:true,tension:0.38,borderWidth:2.5,borderDash:[],pointBackgroundColor:'#002FA7',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:6,pointHoverRadius:8},
+      {label:'2025 ADR',data:[581,765,575],borderColor:'#9ca3af',backgroundColor:'transparent',fill:false,tension:0.38,borderWidth:1.5,borderDash:[7,4],pointBackgroundColor:'#9ca3af',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5,pointHoverRadius:7}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: €${c.parsed.y}` }}},
+      scales:{x:{ticks:{font:{size:11},color:'#888'},grid:{display:false},border:{display:false}},
+        y:{min:400,ticks:{callback:v=>'€'+v,font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'},border:{display:false}}}}
+  });
+
+  // Package chart
+  new Chart(document.getElementById('cPkg'),{
+    type:'bar',
+    data:{
+      labels:['Summer Surf Package','Surf Experiences','Room Only Last Minute','Room Only Summer','Room Only + TV','Room Only All Year'],
+      datasets:[
+        {label:'2026',data:[58642,61812,76909,32133,2583,10878],backgroundColor:C26s,borderRadius:3},
+        {label:'2025',data:[81311,53204,51837,0,45913,29518],backgroundColor:C25s,borderRadius:3}
+      ]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{size:11},color:'#6b6b78'}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: €${c.parsed.x.toLocaleString()}`}}},
+      scales:{x:{ticks:{callback:v=>'€'+(v/1000)+'K',font:{size:10},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'},border:{display:false}},
+        y:{ticks:{font:{size:10},color:'#888'},grid:{display:false},border:{display:false}}}}
+  });
+
+  // Country chart
+  new Chart(document.getElementById('cCtry'),{
+    type:'bar',
+    data:{
+      labels:['UK','France','Switzerland','Netherlands','USA','Germany','Australia','Belgium'],
+      datasets:[
+        {label:'2026',data:[110060,50982,22168,17490,12247,11725,9216,5322],backgroundColor:C26s,borderRadius:3},
+        {label:'2025',data:[88404,52830,18090,12341,0,6003,0,7591],backgroundColor:C25s,borderRadius:3}
+      ]
+    },
+    options:defOpts()
+  });
+
+  // LOS chart
+  new Chart(document.getElementById('cLOS'),{
+    type:'bar',
+    data:{
+      labels:['1 night','2 nights','3 nights','4 nights','5 nights','6 nights','7 nights'],
+      datasets:[
+        {label:'2026',data:[62,76,65,79,31,27,39],backgroundColor:C26s,borderRadius:3},
+        {label:'2025',data:[93,99,63,80,54,16,51],backgroundColor:C25s,borderRadius:3}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{font:{size:11},color:'#6b6b78'}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y} bookings`}}},
+      scales:{x:{ticks:{font:{size:11},color:'#888'},grid:{display:false},border:{display:false}},
+        y:{ticks:{font:{size:11},color:'#888'},grid:{color:'rgba(0,0,0,0.05)'},border:{display:false}}}}
+  });
+
+});
+</script>
+</body>
+</html>
