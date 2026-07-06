@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amouage Hotel — Q2 2026 Performance Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:      #002FA7;
+  --blue-l:    #1A44C7;
+  --blue-xl:   #3355CC;
+  --blue-bg:   rgba(0,47,167,0.05);
+  --bg:        #F5F3EE;
+  --surface:   #FFFFFF;
+  --surface2:  #ECEAE4;
+  --text:      #111118;
+  --muted:     #6b6b78;
+  --border:    rgba(17,17,24,0.1);
+  --red:       #C8210E;
+  --amber:     #B36E00;
+  --green:     #2d6e47;
+  --font-d:    'Bebas Neue', sans-serif;
+  --font-c:    'Barlow Condensed', sans-serif;
+  --font-m:    'DM Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-c);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.report-header {
+  background: var(--bg);
+  border-bottom: 2px solid var(--blue);
+  padding: 56px 56px 48px;
+  position: relative;
+}
+.header-eyebrow {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue-xl);
+  margin-bottom: 16px;
+}
+.header-title {
+  font-family: var(--font-d);
+  font-size: clamp(52px, 7vw, 96px);
+  line-height: 0.88;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 24px;
+}
+.header-title span { color: var(--blue); }
+.header-divider { width: 50px; height: 3px; background: var(--blue); margin-bottom: 18px; }
+.header-sub {
+  font-family: var(--font-c);
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  max-width: 580px;
+  line-height: 1.7;
+}
+.header-meta {
+  margin-top: 32px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+.header-meta-item {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.header-meta-item strong {
+  color: var(--blue);
+  font-weight: 400;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ── NAV ── */
+.report-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 56px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+.report-nav::-webkit-scrollbar { display: none; }
+.report-nav a {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 16px 18px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.report-nav a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* ── LAYOUT ── */
+.container { max-width: 1020px; margin: 0 auto; padding: 0 32px; }
+.section { padding: 60px 0 0; }
+.section:last-of-type { padding-bottom: 80px; }
+
+.section-eyebrow {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blue-xl);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: var(--font-d);
+  font-size: clamp(30px, 3.5vw, 46px);
+  text-transform: uppercase;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+.section-rule { width: 100%; height: 1px; background: var(--border); margin-bottom: 28px; }
+
+/* ── NOTICE ── */
+.notice {
+  border-left: 3px solid var(--blue);
+  background: var(--blue-bg);
+  padding: 12px 18px;
+  font-family: var(--font-c);
+  font-size: 13.5px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.65;
+}
+.notice strong { color: var(--blue-l); font-weight: 600; }
+
+/* ── KPI GRID ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.kpi-card { background: var(--surface); padding: 24px 22px; }
+.kpi-month {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.kpi-figures { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.kpi-25 { font-family: var(--font-d); font-size: 30px; color: #ccc; }
+.kpi-arr { font-size: 14px; color: var(--muted); }
+.kpi-26 { font-family: var(--font-d); font-size: 42px; }
+.kpi-26.good { color: var(--green); }
+.kpi-26.warn { color: var(--amber); }
+.kpi-26.bad  { color: var(--red);   }
+.kpi-gap { font-family: var(--font-m); font-size: 11px; letter-spacing: 0.06em; }
+.kpi-gap.good { color: var(--green); }
+.kpi-gap.warn { color: var(--amber); }
+.kpi-gap.bad  { color: var(--red);   }
+
+/* ── CHART ── */
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px 22px 18px;
+  margin-bottom: 28px;
+}
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 16px;
+  align-items: center;
+}
+.legend-item { display: flex; align-items: center; gap: 7px; }
+.l-solid  { width: 28px; height: 3px; background: var(--blue); border-radius: 2px; }
+.l-dash   { width: 28px; height: 2px;
+  background-image: repeating-linear-gradient(90deg, #aaa 0, #aaa 7px, transparent 7px, transparent 11px); }
+.l-thresh { width: 28px; height: 1.5px; background: rgba(200,33,14,0.5); border-radius: 2px; }
+/* CRITICAL: wrapper must have explicit height for Chart.js responsive mode */
+.chart-wrap { position: relative; width: 100%; height: 300px; }
+
+/* ── TABLES ── */
+.table-wrap { border: 1px solid var(--border); margin-bottom: 24px; overflow: hidden; }
+.table-head-label {
+  padding: 10px 16px;
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue-xl);
+  border-bottom: 1px solid var(--border);
+  background: var(--blue-bg);
+}
+.data-table { width: 100%; border-collapse: collapse; font-family: var(--font-c); font-size: 14px; font-weight: 300; letter-spacing: 0.03em; }
+.data-table th {
+  background: var(--surface2);
+  padding: 9px 14px;
+  text-align: left;
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+}
+.data-table th.r { text-align: right; }
+.data-table th.c { text-align: center; }
+.data-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+  background: var(--surface);
+}
+.data-table td.r { text-align: right; }
+.data-table td.c { text-align: center; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:nth-child(even) td { background: var(--bg); }
+.data-table tfoot td {
+  background: var(--blue-bg);
+  font-weight: 600;
+  border-top: 1px solid rgba(0,47,167,0.2);
+  border-bottom: none;
+  color: var(--text);
+}
+.t-red   { color: var(--red);   font-weight: 600; }
+.t-good  { color: var(--green); font-weight: 600; }
+.t-warn  { color: var(--amber); font-weight: 600; }
+.t-muted { color: var(--muted); }
+
+/* ── SPLIT ROW ── */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 20px;
+}
+.split-card { background: var(--surface); padding: 20px 22px; }
+.split-label {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.split-card p { font-family: var(--font-c); font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.65; }
+
+/* ── FINDINGS ── */
+.findings { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 28px; }
+.finding { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); padding: 15px 18px; }
+.finding-badge {
+  font-family: var(--font-m);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.badge-critical { background: var(--red);   color: #fff; }
+.badge-high     { background: var(--amber); color: #fff; }
+.badge-positive { background: var(--green); color: #fff; }
+.badge-note     { background: var(--blue);  color: #fff; }
+.finding p { font-family: var(--font-c); font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.65; }
+.finding p strong { color: var(--text); font-weight: 600; }
+
+/* ── FOOTER ── */
+.report-footer {
+  background: var(--surface2);
+  border-top: 2px solid var(--blue);
+  padding: 28px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 60px;
+}
+.footer-left p {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.footer-credit {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .report-header { padding: 40px 20px 36px; }
+  .container { padding: 0 18px; }
+  .report-nav { padding: 0 18px; }
+  .split-row { grid-template-columns: 1fr; }
+  .report-footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="report-header">
+  <p class="header-eyebrow">Surf Maroc · Amouage Hotel · Internal report</p>
+  <h1 class="header-title">Q2 <span>2026</span><br>Performance<br>Report</h1>
+  <div class="header-divider"></div>
+  <p class="header-sub">Occupancy analysis vs Q2 2025 · April, May &amp; June · Calculated directly from PMS booking calendar</p>
+  <div class="header-meta">
+    <div class="header-meta-item"><strong>Property</strong>Amouage Hotel · Agadir</div>
+    <div class="header-meta-item"><strong>Rooms</strong>26 rooms · 7 categories</div>
+    <div class="header-meta-item"><strong>Period</strong>Q2 · Apr – Jun 2026</div>
+    <div class="header-meta-item"><strong>Issued</strong>July 6, 2026</div>
+    <div class="header-meta-item"><strong>Classification</strong>Confidential · Internal</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="report-nav" aria-label="Report sections">
+  <a href="#occupancy">01 · Occupancy</a>
+  <a href="#chart">02 · Trend</a>
+  <a href="#clim">03 · CLIM Loss</a>
+  <a href="#rooms">04 · Room Types</a>
+  <a href="#findings">05 · Findings</a>
+</nav>
+
+<div class="container">
+
+  <!-- 01 -->
+  <section class="section" id="occupancy">
+    <p class="section-eyebrow">01 · Overall performance</p>
+    <h2 class="section-title">Q2 Occupancy</h2>
+    <div class="section-rule"></div>
+    <div class="notice">
+      <strong>Methodology:</strong> Figures calculated room by room directly from PMS booking bars. The top summary row has not been used. CLIM blocks (AC works), grey, yellow and red hatched cells are excluded from both numerator and denominator — only confirmed guest bookings counted.
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <p class="kpi-month">April 2026 vs 2025</p>
+        <div class="kpi-figures"><span class="kpi-25">83%</span><span class="kpi-arr">→</span><span class="kpi-26 warn">79%</span></div>
+        <p class="kpi-gap warn">−4 pts · manageable</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-month">May 2026 vs 2025</p>
+        <div class="kpi-figures"><span class="kpi-25">78%</span><span class="kpi-arr">→</span><span class="kpi-26 bad">61%</span></div>
+        <p class="kpi-gap bad">−17 pts · significant</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-month">June 2026 vs 2025</p>
+        <div class="kpi-figures"><span class="kpi-25">82%</span><span class="kpi-arr">→</span><span class="kpi-26 bad">54%</span></div>
+        <p class="kpi-gap bad">−28 pts · critical</p>
+      </div>
+      <div class="kpi-card">
+        <p class="kpi-month">Q2 Average</p>
+        <div class="kpi-figures"><span class="kpi-25">81%</span><span class="kpi-arr">→</span><span class="kpi-26 bad">65%</span></div>
+        <p class="kpi-gap bad">−16 pts overall</p>
+      </div>
+    </div>
+    <p style="font-family:var(--font-c);font-size:14px;font-weight:300;color:var(--muted);letter-spacing:0.03em;line-height:1.7;">April held up well at only 4 points behind last year — underlying demand is intact. The deterioration accelerates sharply through May and June, with the June gap of 28 points being the most significant underperformance of the quarter.</p>
+  </section>
+
+  <!-- 02 -->
+  <section class="section" id="chart">
+    <p class="section-eyebrow">02 · Trend analysis</p>
+    <h2 class="section-title">Occupancy Trend</h2>
+    <div class="section-rule"></div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span class="legend-item"><span class="l-solid"></span>2026 — this year</span>
+        <span class="legend-item"><span class="l-dash"></span>2025 — last year</span>
+        <span class="legend-item"><span class="l-thresh"></span>60% threshold</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="q2Chart" role="img" aria-label="Q2 occupancy trend 2025 vs 2026. Solid 2026 line falls from 80% in April to 50% late June. Dotted 2025 holds 77-84% throughout.">
+          2026: Apr 80%, 79%; May 65%, 57%; Jun 58%, 50%. 2025: Apr 84%, 82%; May 79%, 77%; Jun 84%, 80%.
+        </canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="section" id="clim">
+    <p class="section-eyebrow">03 · Revenue impact</p>
+    <h2 class="section-title">CLIM Revenue Loss</h2>
+    <div class="section-rule"></div>
+    <div class="notice">
+      Only rooms labelled <strong>CLIM</strong> (air conditioning works) are counted. Period: <strong>June 1–20, 2026</strong>. Rates applied: Ocean / Ocean Balcony / Ocean Garden £155 · Ocean Balcony Big £188 · Standard £105.
+    </div>
+    <div class="table-wrap">
+      <div class="table-head-label">CLIM blocks · room by room · Jun 1–20, 2026</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>Category</th>
+            <th class="c">CLIM nights</th>
+            <th class="c">Rate / night</th>
+            <th class="r">Lost revenue</th>
+          </tr>
+        </thead>
+        <tbody id="climTable"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">Total · 17 rooms affected</td>
+            <td class="c t-red" id="climNights"></td>
+            <td></td>
+            <td class="r t-red" style="font-size:15px;" id="climTotal"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="split-row">
+      <div class="split-card">
+        <p class="split-label" style="color:var(--red);">What this means</p>
+        <p>All 62 CLIM nights were concentrated in June 9–20. Running AC works across 17 rooms simultaneously during peak season removed a significant portion of sellable inventory at the busiest time of year.</p>
+      </div>
+      <div class="split-card">
+        <p class="split-label" style="color:var(--blue);">Recommendation</p>
+        <p>Staggering AC works over the low season (November–January), room by room, would have avoided this loss entirely. All non-emergency maintenance should be scheduled within the low season window going forward.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="section" id="rooms">
+    <p class="section-eyebrow">04 · Category performance</p>
+    <h2 class="section-title">Room Type Summary</h2>
+    <div class="section-rule"></div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr><th>Room type</th><th class="c">Q2 2025</th><th class="c">Q2 2026</th><th class="c">Gap</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ocean rooms (01–03, 07–09)</td><td class="c t-muted">~84%</td><td class="c t-red">~52%</td><td class="c t-red">−32 pts</td><td style="font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;color:var(--red);">WORST CATEGORY</td></tr>
+          <tr><td>Ocean Garden Big (34–36)</td><td class="c t-muted">~78%</td><td class="c t-red">~44%</td><td class="c t-red">−34 pts</td><td style="font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;color:var(--red);">MOST BLOCKED</td></tr>
+          <tr><td>Ocean Garden (31–33)</td><td class="c t-muted">~82%</td><td class="c t-red">~58%</td><td class="c t-red">−24 pts</td><td style="font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;color:var(--amber);">CLIM + VACANCIES</td></tr>
+          <tr><td>Ocean Balcony Big (14)</td><td class="c t-muted">~78%</td><td class="c t-warn">~60%</td><td class="c t-warn">−18 pts</td><td style="font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;color:var(--amber);">DECLINING</td></tr>
+          <tr><td>Ocean Balcony (04–06, 11–13)</td><td class="c t-muted">~80%</td><td class="c t-warn">~64%</td><td class="c t-warn">−16 pts</td><td style="font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;color:var(--amber);">BELOW TARGET</td></tr>
+          <tr><td>Standard rooms (16–22)</td><td class="c t-muted">~88%</td><td class="c t-warn">~72%</td><td class="c t-warn">−16 pts</td><td style="font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;color:var(--amber);">HOLDING</td></tr>
+          <tr><td>Bunk — Room 15</td><td class="c t-muted">~92%</td><td class="c t-good">~80%</td><td class="c t-warn">−10 pts</td><td style="font-family:var(--font-m);font-size:10px;letter-spacing:0.1em;color:var(--green);">MOST RESILIENT</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="section" id="findings">
+    <p class="section-eyebrow">05 · Analysis</p>
+    <h2 class="section-title">Key Findings</h2>
+    <div class="section-rule"></div>
+    <div class="findings">
+      <div class="finding">
+        <span class="finding-badge badge-critical">Critical</span>
+        <p>Ocean rooms 01–03 show <strong>genuine booking gaps from mid-May onward</strong> — not CLIM, not blocked. These were fully occupied through Q2 2025. The shortfall is a real demand or pricing issue at the highest per-night revenue rate.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-badge badge-critical">Critical</span>
+        <p><strong>62 CLIM nights across 17 rooms</strong> concentrated in June 9–20 represent £8,454 in directly avoidable revenue loss. Running AC works on 17 rooms simultaneously during peak season is a scheduling decision with a quantifiable and preventable cost.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-badge badge-high">High</span>
+        <p>Ocean Garden Big rooms 34–36 are the <strong>most blocked room type in Q2 2026</strong> — a combination of CLIM and other blocks resulted in a 34-point gap versus last year, the largest of any category.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-badge badge-high">High</span>
+        <p>Standard rooms 16–22, while down 16 points YoY, are <strong>holding the best relative performance</strong> of any non-bunk room type. Demand for accessible price points is more resilient than premium inventory.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-badge badge-positive">Positive</span>
+        <p>April 2026 is only <strong>4 points behind April 2025</strong> — underlying property demand is intact. The deterioration is concentrated in May and June, pointing to a pricing, booking-window, or supply-side problem rather than a structural demand issue.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-badge badge-positive">Positive</span>
+        <p>Room 15 Bunk held at <strong>approximately 80% through Q2</strong> — the most consistent performer in the property across both years. Demand for shared beds at Amouage is strong and reliable.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-badge badge-note">Note</span>
+        <p>Bookings are visible immediately before and after CLIM periods on most affected rooms, <strong>confirming guests would have filled them</strong> had they been available. The CLIM loss is opportunity cost, not a lack of demand.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="report-footer">
+  <div class="footer-left">
+    <p>Amouage Hotel · Surf Maroc · Q2 2026 Performance Report</p>
+    <p>Confidential · Internal use only · July 6, 2026</p>
+  </div>
+  <p class="footer-credit">Made by Ayman Boutadghart</p>
+</footer>
+
+<script>
+// ── CLIM TABLE ──
+const climRooms = [
+  {room:'01', cat:'Ocean',             nights:4, rate:155},
+  {room:'02', cat:'Ocean',             nights:4, rate:155},
+  {room:'03', cat:'Ocean',             nights:3, rate:155},
+  {room:'11', cat:'Ocean Balcony',     nights:4, rate:155},
+  {room:'12', cat:'Ocean Balcony',     nights:4, rate:155},
+  {room:'13', cat:'Ocean Balcony',     nights:4, rate:155},
+  {room:'14', cat:'Ocean Balcony Big', nights:3, rate:188},
+  {room:'16', cat:'Standard',          nights:4, rate:105},
+  {room:'17', cat:'Standard',          nights:4, rate:105},
+  {room:'18', cat:'Standard',          nights:4, rate:105},
+  {room:'19', cat:'Standard',          nights:4, rate:105},
+  {room:'21', cat:'Standard',          nights:3, rate:105},
+  {room:'22', cat:'Standard',          nights:3, rate:105},
+  {room:'31', cat:'Ocean Garden',      nights:3, rate:155},
+  {room:'32', cat:'Ocean Garden',      nights:3, rate:155},
+  {room:'34', cat:'Ocean Garden Big',  nights:4, rate:155},
+  {room:'35', cat:'Ocean Garden Big',  nights:3, rate:155},
+];
+const tbody = document.getElementById('climTable');
+let totalN = 0, totalR = 0;
+climRooms.forEach((r, i) => {
+  const rev = r.nights * r.rate;
+  totalN += r.nights;
+  totalR += rev;
+  const altBg = i % 2 !== 0 ? 'background:#F5F3EE;' : 'background:#fff;';
+  tbody.innerHTML += `<tr>
+    <td style="${altBg}font-weight:500;">${'Room ' + r.room}</td>
+    <td style="${altBg}color:#6b6b78;">${r.cat}</td>
+    <td class="c" style="${altBg}">${r.nights}</td>
+    <td class="c" style="${altBg}color:#6b6b78;">£${r.rate}</td>
+    <td class="r" style="${altBg}color:#C8210E;font-weight:600;">£${rev.toLocaleString()}</td>
+  </tr>`;
+});
+document.getElementById('climNights').textContent = totalN + ' nights';
+document.getElementById('climTotal').textContent  = '£' + totalR.toLocaleString();
+
+// ── CHART ──
+const labels = ['Apr 1–15','Apr 16–30','May 1–15','May 16–31','Jun 1–15','Jun 16–30'];
+const d26    = [80, 79, 65, 57, 58, 50];
+const d25    = [84, 82, 79, 77, 84, 80];
+const ptColors26 = d26.map(v => v < 58 ? '#C8210E' : v < 70 ? '#B36E00' : '#2d6e47');
+
+window.addEventListener('load', function() {
+  const ctx = document.getElementById('q2Chart');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: '2026',
+          data: d26,
+          borderColor: '#002FA7',
+          backgroundColor: 'rgba(0,47,167,0.06)',
+          fill: true,
+          tension: 0.38,
+          borderWidth: 2.5,
+          borderDash: [],
+          pointBackgroundColor: ptColors26,
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8
+        },
+        {
+          label: '2025',
+          data: d25,
+          borderColor: '#aaaaaa',
+          backgroundColor: 'transparent',
+          fill: false,
+          tension: 0.38,
+          borderWidth: 1.5,
+          borderDash: [7, 4],
+          pointBackgroundColor: '#aaaaaa',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        },
+        {
+          label: '60%',
+          data: Array(6).fill(60),
+          borderColor: 'rgba(200,33,14,0.4)',
+          borderDash: [3, 3],
+          borderWidth: 1.5,
+          pointRadius: 0,
+          fill: false,
+          tension: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(17,17,24,0.9)',
+          titleFont: { size: 12 },
+          bodyFont: { size: 12 },
+          padding: 12,
+          borderColor: 'rgba(0,47,167,0.3)',
+          borderWidth: 1,
+          callbacks: {
+            label: function(c) {
+              if (c.dataset.label === '60%') return null;
+              const v = c.parsed.y;
+              const o = c.datasetIndex === 0 ? d25[c.dataIndex] : d26[c.dataIndex];
+              const diff = Math.round(v - o);
+              return ' ' + c.dataset.label + ': ' + v + '%  (' + (diff >= 0 ? '+' : '') + diff + ' pts)';
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: 35,
+          max: 100,
+          ticks: { callback: function(v){ return v + '%'; }, stepSize: 10, font: { size: 11 }, color: '#999999' },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          border: { display: false }
+        },
+        x: {
+          ticks: { font: { size: 11 }, color: '#999999', autoSkip: false, maxRotation: 20 },
+          grid: { display: false },
+          border: { display: false }
+        }
+      }
+    },
+    plugins: [{
+      id: 'bands',
+      beforeDraw: function(chart) {
+        const ca = chart.chartArea;
+        const x  = chart.scales.x;
+        if (!ca) return;
+        const ctx2 = chart.ctx;
+        const s = x.getPixelForValue(1) - x.getPixelForValue(0);
+        var bands = [
+          { f:0, t:1, c:'rgba(0,47,167,0.03)' },
+          { f:2, t:3, c:'rgba(0,47,167,0.02)' },
+          { f:4, t:5, c:'rgba(0,47,167,0.05)' }
+        ];
+        bands.forEach(function(b) {
+          ctx2.fillStyle = b.c;
+          ctx2.fillRect(x.getPixelForValue(b.f) - s/2, ca.top, x.getPixelForValue(b.t) - x.getPixelForValue(b.f) + s, ca.bottom - ca.top);
+        });
+        ctx2.save();
+        ctx2.font = '400 10px DM Mono, monospace';
+        ctx2.textAlign = 'center';
+        ctx2.fillStyle = 'rgba(0,47,167,0.5)';
+        var months = [{l:'APRIL',f:0,t:1},{l:'MAY',f:2,t:3},{l:'JUNE',f:4,t:5}];
+        months.forEach(function(m) {
+          ctx2.fillText(m.l, (x.getPixelForValue(m.f) + x.getPixelForValue(m.t)) / 2, ca.top - 7);
+        });
+        ctx2.restore();
+      }
+    }]
+  });
+});
+</script>
+</body>
+</html>
